@@ -15,7 +15,6 @@ class Guard extends LaravelGuard {
 	public function __construct(UserProviderInterface $provider, $path)
 	{
 		$this->provider = $provider;
-		require_once $path.'core/lib/ETSession.class.php';
 		$this->etSession =  new ETSession;
 	}
 
