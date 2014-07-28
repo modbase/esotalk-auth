@@ -99,7 +99,10 @@ class UserProvider implements UserProviderInterface {
 	{
 		$hash = $this->hashPassword($credentials['password']);
 
-		return $hash == $user->getAuthPassword();
+		require_once $this->parser->get('path').'core/lib/vendor/phpass/PasswordHash.php';
+		$hasher = new PasswordHash(8, false);
+
+		return $hasher->CheckPassword($credentials['password'], $hash);
 	}
 
 	/**
@@ -109,7 +112,7 @@ class UserProvider implements UserProviderInterface {
 	 */
 	protected function newQuery()
 	{
-		return $this->database->table('users');
+		return $this->database->table('member');
 	}
 
 	protected function hashPassword($password)

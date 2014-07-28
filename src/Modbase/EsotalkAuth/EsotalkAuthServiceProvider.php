@@ -13,7 +13,7 @@ class EsotalkAuthServiceProvider extends ServiceProvider {
 	{
 		$this->app['esotalk.config'] = $this->app->share(function($app)
 		{
-			$path = $app['config']['esotalk-auth::path'].'config/config.php';
+			$path = $app['config']['esotalk-auth::path'].'config/';
 
 			return new ConfigParser($path);
 		});
@@ -26,13 +26,6 @@ class EsotalkAuthServiceProvider extends ServiceProvider {
 			return new DatabaseConnector($factory, $configParser);
 		});
 
-		$this->app['esotalk.cookie.storage'] = $this->app->share(function($app)
-		{
-			$configParser = $app['esotalk.config'];
-
-			return new CookieStorage($app['request'], $configParser);
-		});
-
 		// Register the Esotalk authentication driver
 		$this->app->resolving('auth', function($auth)
 		{
@@ -42,7 +35,7 @@ class EsotalkAuthServiceProvider extends ServiceProvider {
 				$configParser = $app['esotalk.config'];
 				$provider = new UserProvider($connector->connection(), $configParser);
 
-				return new Guard($provider, $app['esotalk.cookie.storage']);
+				return new Guard($provider);
 			});
 		});
 	}

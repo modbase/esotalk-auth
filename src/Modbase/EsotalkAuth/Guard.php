@@ -7,23 +7,19 @@ use Illuminate\Auth\UserProviderInterface;
 class Guard extends LaravelGuard {
 
 	/**
-	 * The cookie storage instance.
-	 *
-	 * @var \Modbase\EsotalkAuth\CookieStorage
-	 */
-	protected $storage;
-
-	/**
 	 * Create a new authentication guard.
 	 *
 	 * @param  \Illuminate\Auth\UserProviderInterface  $provider
-	 * @param  \Modbase\EsotalkAuth\CookieStorage  $storage
 	 * @return void
 	 */
-	public function __construct(UserProviderInterface $provider, CookieStorage $storage)
+	public function __construct(UserProviderInterface $provider)
 	{
-		$this->storage = $storage;
 		$this->provider = $provider;
+
+		// Dirty hack to be able to use the ETSession class
+		define('IN_ESOTALK', true);
+
+		$this->etSession =  new ETSession;
 	}
 
 	/**
@@ -33,7 +29,7 @@ class Guard extends LaravelGuard {
 	 */
 	public function check()
 	{
-		return ! is_null($this->user()) && $this->user()->getAuthIdentifier() > 0;
+		return ! is_null($this->user());
 	}
 
 	/**
@@ -63,7 +59,7 @@ class Guard extends LaravelGuard {
 			return $this->user;
 		}
 
-		$id = $this->storage->getId();
+		$id = $this->etSession->userId();
 
 		// First we will try to load the user using the identifier in the session if
 		// one exists. Otherwise we will check for a "remember me" cookie in this
@@ -111,11 +107,10 @@ class Guard extends LaravelGuard {
 	 */
 	protected function setLoginCookie(UserInterface $user, $remember = false)
 	{
-		$id = $user->getAuthIdentifier();
+		$username = $user->getUsername();
 		$password = $user->getAuthPassword();
 
-		$cookie = $this->storage->login($id, $password, $remember);
-		$this->queueCookie($cookie);
+		$this->etSession->login($username, $password, $remember);
 	}
 
 	/**
@@ -139,21 +134,6 @@ class Guard extends LaravelGuard {
 	 */
 	protected function clearUserDataFromStorage()
 	{
-		$this->queueCookie($this->storage->logout());
+		$this->etSession->logout();
 	}
-
-	/**
-	 * If necessary, push a new cookie onto the queue.
-	 *
-	 * @param  mixed  $cookie
-	 * @return void
-	 */
-	protected function queueCookie($cookie)
-	{
-		if ( ! is_null($cookie))
-		{
-			$this->getCookieJar()->queue($cookie);
-		}
-	}
-
 }
