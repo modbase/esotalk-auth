@@ -12,9 +12,10 @@ class Guard extends LaravelGuard {
 	 * @param  \Illuminate\Auth\UserProviderInterface  $provider
 	 * @return void
 	 */
-	public function __construct(UserProviderInterface $provider)
+	public function __construct(UserProviderInterface $provider, $path)
 	{
 		$this->provider = $provider;
+		require_once $path.'core/lib/ETSession.class.php';
 		$this->etSession =  new ETSession;
 	}
 
