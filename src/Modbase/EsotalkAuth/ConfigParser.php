@@ -3,7 +3,7 @@
 class ConfigParser {
 
 	/**
-	 * The path to the config file.
+	 * The path to the Esotalk config file.
 	 *
 	 * @var string
 	 */
@@ -37,7 +37,7 @@ class ConfigParser {
 	{
 		$variables = $this->variables();
 
-		return isset($variables[$key]) ? $variables[$key] : '';
+		return isset($variables['config'][$key]) ? $variables['config'][$key] : '';
 	}
 
 	/**

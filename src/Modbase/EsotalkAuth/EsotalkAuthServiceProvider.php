@@ -39,7 +39,8 @@ class EsotalkAuthServiceProvider extends ServiceProvider {
 			$auth->extend('esotalk', function($app)
 			{
 				$connector = $app['esotalk.db.connector'];
-				$provider = new UserProvider($connector->connection());
+				$configParser = $app['esotalk.config'];
+				$provider = new UserProvider($connector->connection(), $configParser);
 
 				return new Guard($provider, $app['esotalk.cookie.storage']);
 			});

@@ -19,9 +19,10 @@ class UserProvider implements UserProviderInterface {
 	 * @param  \Illuminate\Database\Connection  $database
 	 * @return void
 	 */
-	public function __construct(Connection $database)
+	public function __construct(Connection $database, ConfigParser $parser)
 	{
 		$this->database = $database;
+		$this->parser = $parser;
 	}
 
 	/**
@@ -114,7 +115,7 @@ class UserProvider implements UserProviderInterface {
 	protected function hashPassword($password)
 	{
 		// TODO: fetch path to Esotalk from config
-		require_once PATH_LIBRARY."/vendor/phpass/PasswordHash.php";
+		require_once $this->parser->get('path').'core/lib/vendor/phpass/PasswordHash.php";
 		$hasher = new PasswordHash(8, FALSE);
 		return $hasher->HashPassword($password);
 	}
