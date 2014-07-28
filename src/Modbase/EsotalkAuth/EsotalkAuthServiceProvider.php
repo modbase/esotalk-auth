@@ -13,7 +13,7 @@ class EsotalkAuthServiceProvider extends ServiceProvider {
 	{
 		$this->app['esotalk.config'] = $this->app->share(function($app)
 		{
-			$path = $app['config']['esotalk-auth::path'].'config/';
+			$path = $app['config']['esotalk-auth::path'];
 
 			return new ConfigParser($path);
 		});

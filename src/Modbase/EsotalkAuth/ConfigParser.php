@@ -49,8 +49,8 @@ class ConfigParser {
 	{
 		if ( ! isset($this->variables))
 		{
-			include $this->path.'config.defaults.php';
-			include $this->path.'config.php';
+			include $this->path.'core/config.defaults.php';
+			include $this->path.'config/config.php';
 
 			$this->variables = get_defined_vars();
 		}
