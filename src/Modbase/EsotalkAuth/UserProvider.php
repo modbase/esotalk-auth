@@ -14,6 +14,13 @@ class UserProvider implements UserProviderInterface {
 	protected $database;
 
 	/**
+	 * The config parser instance.
+	 *
+	 * @var \Modbase\EsotalkAuth\ConfigParser
+	 */
+	protected $parser;
+
+	/**
 	 * Create a new database user provider.
 	 *
 	 * @param  \Illuminate\Database\Connection  $database

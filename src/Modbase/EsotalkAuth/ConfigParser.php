@@ -37,7 +37,7 @@ class ConfigParser {
 	{
 		$variables = $this->variables();
 
-		return isset($variables['config'][$key]) ? $variables['config'][$key] : '';
+		return isset($variables[$key]) ? $variables[$key] : '';
 	}
 
 	/**
@@ -49,10 +49,11 @@ class ConfigParser {
 	{
 		if ( ! isset($this->variables))
 		{
-			include $this->path.'core/config.defaults.php';
-			include $this->path.'config/config.php';
+			require_once $this->path.'core/config.defaults.php';
+			require_once $this->path.'config/config.php';
 
-			$this->variables = get_defined_vars();
+			$variables = get_defined_vars();
+			$this->variables = $variables['config'];
 		}
 
 		return $this->variables;

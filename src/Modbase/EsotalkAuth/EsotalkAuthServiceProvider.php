@@ -11,6 +11,9 @@ class EsotalkAuthServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		// Dirty hack to be able to use Esotalk classes
+		define('IN_ESOTALK', true);
+
 		$this->app['esotalk.config'] = $this->app->share(function($app)
 		{
 			$path = $app['config']['esotalk-auth::path'];

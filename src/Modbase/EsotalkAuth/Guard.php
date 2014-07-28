@@ -15,31 +15,7 @@ class Guard extends LaravelGuard {
 	public function __construct(UserProviderInterface $provider)
 	{
 		$this->provider = $provider;
-
-		// Dirty hack to be able to use the ETSession class
-		define('IN_ESOTALK', true);
-
 		$this->etSession =  new ETSession;
-	}
-
-	/**
-	 * Determine if the current user is authenticated.
-	 *
-	 * @return bool
-	 */
-	public function check()
-	{
-		return ! is_null($this->user());
-	}
-
-	/**
-	 * Determine if the current user is a guest.
-	 *
-	 * @return bool
-	 */
-	public function guest()
-	{
-		return is_null($this->user());
 	}
 
 	/**
@@ -124,7 +100,9 @@ class Guard extends LaravelGuard {
 	{
 		$user = $this->provider->retrieveByID($id);
 
-		return $this->login($user, $remember);
+		$this->login($user, $remember);
+
+		return $user;
 	}
 
 	/**
