@@ -1,6 +1,6 @@
 {
     "name": "modbase/esotalk-auth",
-    "description": "A package for external authentication with Esotalk.",
+    "description": "A Laravel package for authentication with Esotalk.",
     "keywords": ["esotalk", "authentication", "laravel"],
     "license": "MIT",
     "authors": [
