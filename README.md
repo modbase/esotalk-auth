@@ -13,13 +13,13 @@ Strongly based on the Fluxbb External Authenticator made by Franz Liedke.
 
 Add this line to the `require` section of your `composer.json`:
 
-    "modbase/esotalk-auth": "1.0.*"
+    "modbase/esotalk-auth": "dev-master"
 
 Alternately, you can use the Composer command-line tool by running this command:
 
     composer require modbase/esotalk-auth
 
-Next, run `composer install` to actually install the package.
+Next, run `composer install` or `composer update` to actually install the package.
 
 ### Step 2: Register the service provider
 
