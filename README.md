@@ -1,9 +1,10 @@
-**THIS IS A WORK IN PROGRESS, DO NOT USE THIS PACKAGE YET!**
+**THIS IS A WORK IN PROGRESS**
+**DO NOT USE THIS PACKAGE YET!**
 
 # Esotalk External Authentication
 
-A package that allows for external authentication with Esotalk, integrating
-directly with the Laravel 4 framework.
+A package that allows for external authentication with [Esotalk](http://esotalk.org/), integrating
+directly with the [Laravel](http://laravel.com/) 4 framework.
 
 Strongly based on the Fluxbb External Authenticator made by Franz Liedke.
 
@@ -19,7 +20,7 @@ Alternately, you can use the Composer command-line tool by running this command:
 
     composer require modbase/esotalk-auth
 
-Next, run `composer install` or `composer update` to actually install the package.
+Next, run `composer update` to actually install the package.
 
 ### Step 2: Register the service provider
 
@@ -44,7 +45,7 @@ installation. Make sure it ends with a slash.
 ### Step 4: Enable the new authentication adapter
 
 In your application, edit the `app/config/auth.php` file and set the `driver`
-option to "esotalk", so that it looks like this:
+option to `esotalk`, so that it looks like this:
 
     'driver' => 'esotalk',
 
