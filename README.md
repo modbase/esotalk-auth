@@ -51,4 +51,4 @@ option to "esotalk", so that it looks like this:
 Once installed, you can use the authentication feature of Laravel as you always
 do, with Laravel magically using Esotalk's database and cookie behind the scenes.
 
-**Note**: This package will not work if your Esotalk installation uses a SQLite2 database, as this database type is not supported by Laravel.
+**Note**: Only MySQL is supported by Esotalk.
