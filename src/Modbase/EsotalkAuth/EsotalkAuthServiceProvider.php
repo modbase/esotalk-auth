@@ -37,8 +37,9 @@ class EsotalkAuthServiceProvider extends ServiceProvider {
 				$connector = $app['esotalk.db.connector'];
 				$configParser = $app['esotalk.config'];
 				$provider = new UserProvider($connector->connection(), $configParser);
+				$path = $app['config']['esotalk-auth::path'];
 
-				return new Guard($provider);
+				return new Guard($provider, $path);
 			});
 		});
 	}
